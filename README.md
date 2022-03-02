@@ -1,2 +1,2 @@
 # OSCP
-Try Harder Her allthings that may you need for the exam.
+Try Harder, allthings that may you need for the exam Here.
